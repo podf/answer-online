@@ -19,6 +19,7 @@ const Register = async (req, res) => {
     }
     res.status(200).json({
         code: 0,
+        identity: 1,
         message: 'success',
     });
 
