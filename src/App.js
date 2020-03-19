@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from 'antd';
+import React from 'react';
 // import 'antd/dist/antd.css'
-import axios from 'axios';
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import { adminRoutes } from './routers';
