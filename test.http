@@ -1,0 +1,8 @@
+###
+
+#@url 
+@url 
+
+
+GET http://localhost:3001/testAPI HTTP/1.1
+# Authorization: Bearer token
