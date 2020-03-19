@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const Schema = mongoose.Schema;
 
@@ -10,7 +11,6 @@ const userSchema = new Schema({
     username: { type: String, unique: true },
     password: {
         type: String, set(value) {
-            const bcrypt = require('bcrypt');
             return bcrypt.hashSync(value, 10);
         }
     },

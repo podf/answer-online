@@ -1,7 +1,7 @@
 // import mongoose from 'mongoose';
 const UserModel = require('../model');
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // 将秘钥放到配置文件中，不要存在GitHub代码托管平台中
 const SECRET = 'qmlmvdjsoja013417y240..!^*&l---';
