@@ -13,7 +13,7 @@ const Register = async (req, res) => {
         });
     } catch (error) {
         res.status(200).json({
-            code: 1,
+            code: 406,
             message: error,
         });
     }

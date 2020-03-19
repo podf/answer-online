@@ -55,8 +55,8 @@ const RegistrationForm = () => {
     const { data } = await Axios.post('http://localhost:3001/register', { username, password, phone, email });
     const { code, identity } = data;
 
-    if (code === 401) {
-      message.error(data.message);
+    if (code === 406) {
+      message.error('用户名已存在');
       return;
     }
     if (identity === 1) {
