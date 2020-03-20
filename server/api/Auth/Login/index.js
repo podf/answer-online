@@ -36,7 +36,7 @@ const Login = async (req, res) => {
         });
     }
     const { _id, identity = '1' } = foundUser;
-    const token = jwt.sign(String(_id), SECRET);
+    const token = jwt.sign(String(_id), SECRET, {expiresIn: '1h'});
     res.status(200).json({
         code: 0,
         token,
