@@ -8,12 +8,22 @@ import './login.css';
 function Login() {
     const onFinish = async values => {
         const { username, password } = values;
-        const { data } = await Axios.post('http://localhost:3001/login', { username, password });
+        const { data } = await Axios.post('http://localhost:3001/api/login', { username, password });
+        // Axios.interceptors.request.use(config => {    //配置axios请求头，axios每次发起请求携带token，在Network中的headers看的到
+        //     // console.log(config)
+        //     config.headers.Authorization = 'afed'  //Authorization  是请求头要求加上的字段
+        //     // config.headers.Authorization = window.sessionStorage.getItem('token')  //Authorization  是请求头要求加上的字段
+        //     return config
+        // })
+
+
         const { code, identity } = data;
         if (code === 401) {
             message.error(data.message);
             return;
         }
+        localStorage.setItem('username', username);
+        localStorage.setItem('identity', identity);
         if (identity === 1) {
             window.location.href = '#/';
         } else {
@@ -52,7 +62,7 @@ function Login() {
                     </Form.Item>
                     <Form.Item >
                         <div className="login-form-footer-btnGroup">
-                            <a href="#/register">注册</a> 
+                            <a href="#/register">注册</a>
                             <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                             <a className="login-form-forgot" href="#/login">
                                 找回密码

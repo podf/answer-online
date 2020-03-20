@@ -1,8 +1,8 @@
 const UserModel = require('../model');
 
 
-const Register = async (req, res) => {
-    const { body: { username, password, phone, email } } = req;
+const Register = async (ctx, next) => {
+    const { body: { username, password, phone, email } } = ctx.request;
     try {
         await UserModel.insertMany({
             username,
@@ -12,17 +12,16 @@ const Register = async (req, res) => {
             identity: 1
         });
     } catch (error) {
-        res.status(200).json({
+        ctx.body = {
             code: 406,
-            message: error,
-        });
+            message: error
+        };
     }
-    res.status(200).json({
+    ctx.body = {
         code: 0,
         identity: 1,
-        message: 'success',
-    });
-
+        message: 'success'
+    };
 }
 
 module.exports = Register;

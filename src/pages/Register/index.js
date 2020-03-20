@@ -52,7 +52,7 @@ const RegistrationForm = () => {
 
   const onFinish = async values => {
     const { username, password, phone, email } = values;
-    const { data } = await Axios.post('http://localhost:3001/register', { username, password, phone, email });
+    const { data } = await Axios.post('http://localhost:3001/api/register', { username, password, phone, email });
     const { code, identity } = data;
 
     if (code === 406) {
@@ -60,7 +60,7 @@ const RegistrationForm = () => {
       return;
     }
     if (identity === 1) {
-      window.location.href = '#/';
+      window.location.href = '#/login';
     }
   };
 

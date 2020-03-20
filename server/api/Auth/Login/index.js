@@ -1,21 +1,21 @@
 // import mongoose from 'mongoose';
-const UserModel = require('../model');
-const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
+const { sign } = require('jsonwebtoken');
 
-// 将秘钥放到配置文件中，不要存在GitHub代码托管平台中
-const SECRET = 'qmlmvdjsoja013417y240..!^*&l---';
+const UserModel = require('../model');
+const { SECRET } = require('../../../../setting.json');
 
-const Login = async (req, res) => {
+const Login = async (ctx, next) => {
     const {
         body: { username, password }
-    } = req;
+    } = ctx.request;
+
     const failed = (code, message) => {
-        res.status(200).json({
+        ctx.body = {
             code: code,
             success: false,
             message: message,
-        });
+        }
     }
     let foundUser = '';
 
@@ -23,28 +23,29 @@ const Login = async (req, res) => {
         foundUser = await UserModel.findOne({ username }).exec();
         if (!foundUser) {
             failed(401, '该用户不存在');
+            return;
         }
-
         const passMatch = bcrypt.compareSync(password, foundUser.password);
         if (!passMatch) {
             failed(401, '用户名或密码错误');
+            return;
         };
     } catch (error) {
-        res.status(200).json({
+        ctx.response.body = {
             code: 1,
             message: error,
-        });
+        }
+        return;
     }
     const { _id, identity = '1' } = foundUser;
-    const token = jwt.sign(String(_id), SECRET, {expiresIn: '1h'});
-    res.status(200).json({
+    const token = sign({ _id, username, identity }, SECRET, { expiresIn: '1h' });
+    ctx.response.body = {
         code: 0,
         token,
         username,
         identity,
         message: 'success',
-    });
+    }
 }
 
 module.exports = Login;
-// export default Login;
