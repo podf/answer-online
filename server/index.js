@@ -13,17 +13,23 @@ const Login = require('./api/Auth/Login');
 const Rigister = require('./api/Auth/Rigister');
 
 
-
-// jwt({ SECRET });
-
 const app = new Koa();
 app.use(cors());
 app.use(bodyParser());
 connectMongo(app);
 
-const router = new Router;
+const router = new Router();
+
+// app.use(jwt({
+//     secret: SECRET
+// }).unless({
+//     path: [/^\/api\/login/]
+// }));
 
 router
+    // 带上jwt就会产生跨域
+    // .post('/api/login', jwt({ secret: SECRET }), Login)
+    .post('/api/login', Login)
     .get('/api/identity', jwt({ secret: SECRET }), admin, async (ctx) => {
         const { username, identity } = ctx.state.user;
         ctx.body = {
@@ -31,7 +37,6 @@ router
             identity,
         }
     })
-    .post('/api/login', Login)
     .post('/api/register', Rigister)
 
 

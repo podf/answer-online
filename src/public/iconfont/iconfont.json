@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4734172",
+      "name": "编辑",
+      "font_class": "ic_accepted",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "7791028",
+      "name": "学习",
+      "font_class": "xuexi",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    },
+    {
+      "icon_id": "10940406",
+      "name": "学习",
+      "font_class": "xuexi1",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    }
+  ]
+}

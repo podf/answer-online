@@ -3,11 +3,12 @@ import Register from '../pages/Register'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home';
 import Admin from '../pages/Admin';
+import Edit from '../pages/Edit';
 
 export const mainRouters = [
     {
-        path: '/',
-        exact: true,
+        path: '/home',
+        exact: false,
         component: Home
     },
     {
@@ -21,16 +22,10 @@ export const mainRouters = [
         component: Register
     },
     {
-        path: '/admin',
-        exact: true,
-        component: Admin
-    },
-    {
         path: '/404',
         component: NotFoundPage
     }
 ];
-
 
 export const adminRoutes = [
     {

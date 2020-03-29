@@ -1,13 +1,13 @@
 import React from 'react';
-// import 'antd/dist/antd.css'
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import { adminRoutes } from './routers';
+import { isLogined } from './utils/auth';
 
 function App() {
+  console.log(isLogined(), 'isLogined')
   return (
-    <div>
-      <h1> 我是app</h1>
+    // isLogined() ?
       <Switch>
         {
           adminRoutes.map(route => {
@@ -25,7 +25,7 @@ function App() {
         }
         <Redirect to="/404" />
       </Switch>
-    </div>
+    // : <Redirect to="/login" />
   )
 }
 

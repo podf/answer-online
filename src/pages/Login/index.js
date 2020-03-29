@@ -1,34 +1,32 @@
 import React from 'react';
-import Axios from 'axios';
 import { Form, Input, Button, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
 import 'antd/dist/antd.css';
 import './login.css';
+import { setToken } from '../../utils/auth';
+import { post } from '../../utils/request';
 
 function Login() {
     const onFinish = async values => {
         const { username, password } = values;
-        const { data } = await Axios.post('http://localhost:3001/api/login', { username, password });
-        // Axios.interceptors.request.use(config => {    //配置axios请求头，axios每次发起请求携带token，在Network中的headers看的到
-        //     // console.log(config)
-        //     config.headers.Authorization = 'afed'  //Authorization  是请求头要求加上的字段
-        //     // config.headers.Authorization = window.sessionStorage.getItem('token')  //Authorization  是请求头要求加上的字段
-        //     return config
-        // })
+        const data = await post('/login', { username, password });
 
-
-        const { code, identity } = data;
+        console.log(data, 'data');
+        // console.log(code, 'code');
+        const { code, token, identity } = data;
         if (code === 401) {
             message.error(data.message);
             return;
         }
-        localStorage.setItem('username', username);
-        localStorage.setItem('identity', identity);
+        setToken('username', username);
+        setToken('identity', identity);
+        setToken('token', token);
         if (identity === 1) {
-            window.location.href = '#/';
+            window.location.href = '#/home';
         } else {
             // 跳转admin页面
-            window.location.href = '#/';
+            window.location.href = '#/admin';
         }
     };
     return (

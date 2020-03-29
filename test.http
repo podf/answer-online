@@ -5,12 +5,18 @@
 
 
 
-POST http://localhost:3001/api/login  HTTP/1.1
-content-type: application/json
+# POST http://localhost:3001/api/login  HTTP/1.1
+# content-type: application/json
 
-{
-"username": 3,
-"password": 4324254677654345678765456
-}
+# {
+# "username": 3,
+# "password": 4324254677654345678765456
+# }
 
-# Authorization: Bearer token
+
+
+GET http://139.198.191.144/api/workbench/projects HTTP/1.1
+
+#
+
+GET url HTTP/1.1    

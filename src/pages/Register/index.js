@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import {
   Form,
   Input,
@@ -11,6 +10,7 @@ import {
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import './register.css';
+import { post } from '../../utils/request';
 
 const { Link } = require('react-router-dom');
 
@@ -52,8 +52,7 @@ const RegistrationForm = () => {
 
   const onFinish = async values => {
     const { username, password, phone, email } = values;
-    const { data } = await Axios.post('http://localhost:3001/api/register', { username, password, phone, email });
-    const { code, identity } = data;
+    const { code, identity } = await post('/register', { username, password, phone, email });
 
     if (code === 406) {
       message.error('用户名已存在');
