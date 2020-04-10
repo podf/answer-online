@@ -22,8 +22,8 @@ function Login() {
         setToken('username', username);
         setToken('identity', identity);
         setToken('token', token);
-        if (identity === 1) {
-            window.location.href = '#/home';
+        if (parseInt(identity) === 1) {
+            window.location.href = '#/home/main';
         } else {
             // 跳转admin页面
             window.location.href = '#/admin';

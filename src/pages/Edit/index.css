@@ -1,0 +1,35 @@
+.root {
+    width: 90%;
+    font-size: 16px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    margin: 20px 0;
+    text-indent: 10px;
+}
+
+.titleFont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    margin-right: 20px;
+}
+
+.describe {
+    display: flex;
+}
+
+.describeFont {
+    width: 80px;
+    margin-right: 20px;
+}
+
+.sumbit {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
