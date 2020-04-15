@@ -4,8 +4,8 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import 'antd/dist/antd.css';
 import './login.css';
-import { setToken } from '../../utils/auth';
-import { post } from '../../utils/request';
+import { setToken } from '../../../utils/auth';
+import { post } from '../../../utils/request';
 
 function Login() {
     const onFinish = async values => {
@@ -14,7 +14,7 @@ function Login() {
 
         console.log(data, 'data');
         // console.log(code, 'code');
-        const { code, token, identity } = data;
+        const { code, token, identity, userId } = data;
         if (code === 401) {
             message.error(data.message);
             return;
@@ -22,6 +22,7 @@ function Login() {
         setToken('username', username);
         setToken('identity', identity);
         setToken('token', token);
+        setToken('userId', userId);
         if (parseInt(identity) === 1) {
             window.location.href = '#/home/main';
         } else {

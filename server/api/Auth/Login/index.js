@@ -41,6 +41,7 @@ const Login = async (ctx, next) => {
     const token = sign({ _id, username, identity }, SECRET, { expiresIn: '1h' });
     ctx.response.body = {
         code: 0,
+        userId: _id,
         token,
         username,
         identity,

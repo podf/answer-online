@@ -1,9 +1,8 @@
-import Login from '../pages/Login';
-import Register from '../pages/Register'
+import Login from '../pages/User/Login';
+import Register from '../pages/User/Register'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home';
-import Admin from '../pages/Admin';
-import Edit from '../pages/Edit';
+import Article from '../pages/Article';
 
 export const mainRouters = [
     {

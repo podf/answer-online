@@ -4,10 +4,10 @@ import './index.css';
 import { Route, withRouter, Switch, HashRouter as Router } from 'react-router-dom';
 import img from '../../../src/img/bg.jpg';
 import Aside from '../Aside';
-import Edit from '../Edit';
+import Edit from '../Article/Edit';
+import List from '../Article/List';
 import Article from '../Article';
-import UserInfo from '../UserInfo';
-import List from '../List';
+import UserInfo from '../User/UserInfo';
 
 
 const { Header, Content, Footer } = Layout;
@@ -42,8 +42,8 @@ function Home(props) {
                     <div className="main" style={{ display: 'flex' }}>
                         <div className="container" style={{ flex: '0 0 70%', maxWidth: '70%' }}>
                             <Route exact path="/home/" component={List} />
-                            <Route path="/home/article/:id" component={Article} />
                             <Route exact path="/home/edit" component={Edit} />
+                            <Route path="/home/article/:id" component={Article} />
                             <Route path="/home/setting" component={UserInfo} />
                         </div>
                         <Route path="/home/" component={Aside} />

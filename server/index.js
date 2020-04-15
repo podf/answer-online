@@ -12,6 +12,10 @@ const admin = require('./middwares/admin')();
 const Login = require('./api/Auth/Login');
 const Rigister = require('./api/Auth/Rigister');
 
+const Edit = require('./api/Article/Edit');
+const Get = require('./api/Article/Get');
+const GetItem = require('./api/Article/GetItem');
+
 
 const app = new Koa();
 app.use(cors());
@@ -38,6 +42,9 @@ router
         }
     })
     .post('/api/register', Rigister)
+    .get('/api/article', Get)
+    .get('/api/article/:_id', GetItem)
+    .post('/api/article', Edit)
 
 
 // router.routes() 将所有路由挂载

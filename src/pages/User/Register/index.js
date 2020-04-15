@@ -10,7 +10,7 @@ import {
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import './register.css';
-import { post } from '../../utils/request';
+import { post } from '../../../utils/request';
 
 const { Link } = require('react-router-dom');
 
