@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const ArticleModel = require('../model');
 
 const GetItem = async (ctx, next) => {

@@ -15,6 +15,7 @@ const Rigister = require('./api/Auth/Rigister');
 const Edit = require('./api/Article/Edit');
 const Get = require('./api/Article/Get');
 const GetItem = require('./api/Article/GetItem');
+const Comment = require('./api/Article/Comment');
 
 
 const app = new Koa();
@@ -44,6 +45,7 @@ router
     .post('/api/register', Rigister)
     .get('/api/article', Get)
     .get('/api/article/:_id', GetItem)
+    .post('/api/comment', Comment)
     .post('/api/article', Edit)
 
 

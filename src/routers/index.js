@@ -2,7 +2,6 @@ import Login from '../pages/User/Login';
 import Register from '../pages/User/Register'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home';
-import Article from '../pages/Article';
 
 export const mainRouters = [
     {
