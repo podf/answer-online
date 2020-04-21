@@ -16,6 +16,7 @@ const Edit = require('./api/Article/Edit');
 const Get = require('./api/Article/Get');
 const GetItem = require('./api/Article/GetItem');
 const Comment = require('./api/Article/Comment');
+const EditComment = require('./api/Article/Comment/Edit');
 
 
 const app = new Koa();
@@ -42,11 +43,14 @@ router
             identity,
         }
     })
+    // article
     .post('/api/register', Rigister)
+    .post('/api/article', Edit)
     .get('/api/article', Get)
     .get('/api/article/:_id', GetItem)
-    .post('/api/comment', Comment)
-    .post('/api/article', Edit)
+    // comment
+    .get('/api/comment/:_id', Comment)
+    .post('/api/comment', EditComment)
 
 
 // router.routes() 将所有路由挂载
