@@ -13,8 +13,10 @@ function Article(props) {
     const [submitting, setSubmitting] = useState(false);
 
     const [replayDialogShow, setReplayDialogShow] = useState(false);
+    const [replayId, setReplayId] = useState('');
     const [replayName, setReplayName] = useState('');
     const [replayMessages, setReplayMessages] = useState('');
+    const username = localStorage.getItem('username');
 
     useEffect(() => {
         // 查询当前文章的内容及评论
@@ -26,20 +28,16 @@ function Article(props) {
             setComments(res.comments);
             setTopComments(res.topComments);
         })
-        // setComments([{
-        //     author: 'Han Solo',
-        //     avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        //     content: 'fjdsfa',
-        //     datetime: moment().fromNow(),
-        // }])
     }, []);
 
 
     const { TextArea } = Input;
 
     // click replay span
-    const replay = (commitId, replayName) => {
+    const replay = (parentId, replayName) => {
+        setReplayId(parentId);
         setReplayName(replayName);
+        setReplayMessages('');
         setReplayDialogShow(true);
     }
 
@@ -47,21 +45,29 @@ function Article(props) {
         setReplayMessages(e.target.value);
     }
 
-    const handleReplayOk = () => {
+    const handleReplayOk = async () => {
+        const res = await post('/comment', {
+            _id: props.match.params.id,
+            author: username,
+            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            to: replayName,
+            content: replayMessages,
+            parentId: replayId,
+        });
+        const commentsData = comments
+        commentsData.push({ ...res.comments, actions: [<span key="comment-nested-reply-to" onClick={() => replay(res.comments._id, res.comments.to)}>Reply to</span>] });
+        setComments(commentsData);
         setReplayDialogShow(false);
     }
 
-    const fintChildComments = (_id) => {
+    const filterChildComments = (_id) => {
         const res = comments.filter(item => item.parentId === _id);
-        console.log(res ,'res')
         return res;
     }
 
     const articleList = (topComments, allComments) => {
-        console.log(topComments, 'topComments')
         return topComments.map(item => {
-            const childComments = fintChildComments(item._id);
-            console.log(childComments, 'childComments')
+            const childComments = filterChildComments(item._id);
             if (childComments.length < 1) {
                 return < Comment
                     author={item.author}
@@ -92,55 +98,13 @@ function Article(props) {
         })
     }
 
-    // 初始化渲染评论
-    const ExampleComment = ({ props }) => {
-        return articleList(topComments, comments);
-        console.log(props, 'props 1')
-        // 在这里渲染一条评论
-
-        if (props.child.length > 0) {
-            return < Comment
-                {
-                ...props
-                }
-                actions={[<span key="comment-nested-reply-to" onClick={() => replay(props._id, props.to)}>Reply to</span>]}
-            >
-                <Comment
-                    {...props}
-                >
-                    {}
-                </Comment >
-            </Comment >
-        } else {
-            return <Comment
-                {
-                ...props
-                }
-                actions={[<span key="comment-nested-reply-to" onClick={() => replay(props._id, props.to)}>Reply to</span>]}
-            />
-        }
-    };
-
     const CommentList = ({ comments }) => (
         <List
             dataSource={comments}
             header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
             itemLayout="horizontal"
-            renderItem={props => <ExampleComment props={props} />}
+            renderItem={() => articleList(topComments, comments)}
         />
-    );
-
-    const Editor = ({ onChange, onSubmit, submitting, value }) => (
-        <div>
-            <Form.Item>
-                <TextArea rows={4} onChange={onChange} value={value} />
-            </Form.Item>
-            <Form.Item>
-                <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-                    发言
-            </Button>
-            </Form.Item>
-        </div>
     );
 
     const handleChange = (e) => {
@@ -148,7 +112,6 @@ function Article(props) {
     }
 
     const handleSubmit = async () => {
-        // setValue(e.targe.value);
         setSubmitting(true);
         const username = localStorage.getItem('username');
         const res = await post('/comment', {
@@ -162,7 +125,6 @@ function Article(props) {
         setSubmitting(false);
         const commentsData = comments
         commentsData.push({ ...res.comments, actions: [<span key="comment-nested-reply-to" onClick={() => replay(res.comments._id, res.comments.to)}>Reply to</span>] });
-        console.log(commentsData, 'commentsData ')
         setComments(commentsData);
         setValue('');
     }
@@ -181,12 +143,16 @@ function Article(props) {
                         />
                     }
                     content={
-                        <Editor
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            submitting={submitting}
-                            value={value}
-                        />
+                        <div>
+                            <Form.Item>
+                                <TextArea rows={4} onChange={handleChange} value={value} />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button htmlType="submit" loading={submitting} onClick={handleSubmit} type="primary">
+                                    发言
+                            </Button>
+                            </Form.Item>
+                        </div>
                     }
                 />
                 {comments.length > 0 && <CommentList comments={comments} />}
