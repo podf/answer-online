@@ -32,7 +32,7 @@ const Comment = async (ctx, next) => {
         }
         const comments = new CommentModel(obj);
         await comments.save();
-        //    await ArticleModel.findByIdAndUpdate(_id, { comments: commentData });
+        // comments = await ArticleModel.findByIdAndUpdate(_id, { comments: commentData });
         ctx.response.body = {
             code: 0,
             comments,

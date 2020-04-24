@@ -10,7 +10,7 @@ const CommentSchema = new Schema({
     content: { type: String, required: true },
     child: { type: Array, default: [] },
     createAt: { type: Date, default: new Date() },
-    // parentId: { type: String, },
+    parentId: { type: String, },
 });
 
 const CommentModel = mongoose.model('comments', CommentSchema);
