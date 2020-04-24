@@ -5,7 +5,7 @@ import './index.css';
 import { get } from '../../../utils/request';
 
 function List(props) {
-    const [data, setData] = useState([{}]);
+    const [data, setData] = useState([]);
     useEffect(() => {
         get('/article').then(res => {
             setData(res.articleList);

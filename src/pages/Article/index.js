@@ -8,6 +8,7 @@ function Article(props) {
     const [value, setValue] = useState('');
     const [content, setContent] = useState('');
     const [comments, setComments] = useState([]);
+    const [topComments, setTopComments] = useState([]);
     // 按钮loading
     const [submitting, setSubmitting] = useState(false);
 
@@ -23,6 +24,7 @@ function Article(props) {
         })
         get(`/comment/${id}`).then(res => {
             setComments(res.comments);
+            setTopComments(res.topComments);
         })
         // setComments([{
         //     author: 'Han Solo',
@@ -50,8 +52,47 @@ function Article(props) {
         setReplayDialogShow(false);
     }
 
+    const fintChildComments = (parentId) => {
+        return comments.find(item => item.parentId == parentId)
+    }
+
+    const articleList = (topComments, allComments) => {
+        console.log(topComments, 'topComments')
+        return topComments.map(item => {
+            const childComments = fintChildComments(item.parentId);
+            if (childComments.length < 1) {
+                return < Comment
+                    author={item.author}
+                    avatar={
+                        <Avatar
+                            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                            alt={item.author}
+                        />
+                    }
+                    content={item.content}
+                    actions={[<span key="comment-nested-reply-to" onClick={() => replay(item._id, item.to)}>Reply to</span>]}
+                ></Comment >
+            } else {
+                return < Comment
+                    author={item.author}
+                    avatar={
+                        <Avatar
+                            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                            alt={item.author}
+                        />
+                    }
+                    content={item.content}
+                    actions={[<span key="comment-nested-reply-to" onClick={() => replay(item._id, item.to)}>Reply to</span>]}
+                >
+                    {articleList(childComments, allComments)}
+                </Comment >
+            }
+        })
+    }
+
     // 初始化渲染评论
     const ExampleComment = ({ props }) => {
+        return articleList(topComments, comments);
         console.log(props, 'props 1')
         // 在这里渲染一条评论
 
