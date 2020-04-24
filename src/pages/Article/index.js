@@ -9,6 +9,7 @@ function Article(props) {
     const [content, setContent] = useState('');
     const [comments, setComments] = useState([]);
     const [topComments, setTopComments] = useState([]);
+    const [commentChange, setCommentChange] = useState(true);
     // 按钮loading
     const [submitting, setSubmitting] = useState(false);
 
@@ -30,6 +31,9 @@ function Article(props) {
         })
     }, []);
 
+    useEffect(() => {
+        setCommentChange(true);
+    }, [comments])
 
     const { TextArea } = Input;
 
@@ -66,10 +70,12 @@ function Article(props) {
     }
 
     const articleList = (topComments, allComments) => {
+        console.log(topComments, 'topComments')
         return topComments.map(item => {
             const childComments = filterChildComments(item._id);
+            console.log(childComments, 'childComments')
             if (childComments.length < 1) {
-                return < Comment
+                return <Comment
                     author={item.author}
                     avatar={
                         <Avatar
@@ -122,11 +128,12 @@ function Article(props) {
             content: value,
             parentId: '',
         });
-        setSubmitting(false);
-        const commentsData = comments
-        commentsData.push({ ...res.comments, actions: [<span key="comment-nested-reply-to" onClick={() => replay(res.comments._id, res.comments.to)}>Reply to</span>] });
-        setComments(commentsData);
+        await get(`/comment/${props.match.params.id}`).then(res => {
+            setComments(res.comments);
+            setTopComments(res.topComments);
+        })
         setValue('');
+        setSubmitting(false);
     }
 
     return (
@@ -155,7 +162,7 @@ function Article(props) {
                         </div>
                     }
                 />
-                {comments.length > 0 && <CommentList comments={comments} />}
+                {comments.length > 0 && topComments.length > 0 && <CommentList comments={comments} />}
                 <Modal
                     title={`回复${replayName}`}
                     visible={replayDialogShow}
