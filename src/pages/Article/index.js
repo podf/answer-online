@@ -70,10 +70,8 @@ function Article(props) {
     }
 
     const articleList = (topComments, allComments) => {
-        console.log(topComments, 'topComments')
-        return topComments.map(item => {
+        return topComments.map(item=> {
             const childComments = filterChildComments(item._id);
-            console.log(childComments, 'childComments')
             if (childComments.length < 1) {
                 return <Comment
                     author={item.author}
@@ -87,7 +85,7 @@ function Article(props) {
                     actions={[<span key="comment-nested-reply-to" onClick={() => replay(item._id, item.to)}>Reply to</span>]}
                 ></Comment >
             } else {
-                return < Comment
+                return <Comment
                     author={item.author}
                     avatar={
                         <Avatar
@@ -106,10 +104,18 @@ function Article(props) {
 
     const CommentList = ({ comments }) => (
         <List
-            dataSource={comments}
-            header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+            itemLayout="vertical"
+            size="large"
+            pagination={{
+                onChange: page => {
+                    console.log(page);
+                },
+                pageSize: 3,
+            }}
+            dataSource={topComments}
+            header={`${topComments.length} ${topComments.length > 1 ? 'replies' : 'reply'}`}
             itemLayout="horizontal"
-            renderItem={() => articleList(topComments, comments)}
+            renderItem={(topComments) => articleList([topComments], comments)}
         />
     );
 
@@ -162,7 +168,7 @@ function Article(props) {
                         </div>
                     }
                 />
-                {comments.length > 0 && topComments.length > 0 && <CommentList comments={comments} />}
+                {comments.length > 0 && <CommentList comments={comments} />}
                 <Modal
                     title={`回复${replayName}`}
                     visible={replayDialogShow}
