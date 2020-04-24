@@ -48,21 +48,19 @@ function Article(props) {
     }
 
     const handleReplayOk = () => {
-        console.log('e')
         setReplayDialogShow(false);
     }
 
-    const fintChildComments = (parentId) => {
-        const res = [];
-        const childRes = comments.find(item => item.parentId == parentId);
-        res.push(childRes);
+    const fintChildComments = (_id) => {
+        const res = comments.filter(item => item.parentId === _id);
+        console.log(res ,'res')
         return res;
     }
 
     const articleList = (topComments, allComments) => {
         console.log(topComments, 'topComments')
         return topComments.map(item => {
-            const childComments = fintChildComments(item.parentId);
+            const childComments = fintChildComments(item._id);
             console.log(childComments, 'childComments')
             if (childComments.length < 1) {
                 return < Comment
