@@ -53,13 +53,17 @@ function Article(props) {
     }
 
     const fintChildComments = (parentId) => {
-        return comments.find(item => item.parentId == parentId)
+        const res = [];
+        const childRes = comments.find(item => item.parentId == parentId);
+        res.push(childRes);
+        return res;
     }
 
     const articleList = (topComments, allComments) => {
         console.log(topComments, 'topComments')
         return topComments.map(item => {
             const childComments = fintChildComments(item.parentId);
+            console.log(childComments, 'childComments')
             if (childComments.length < 1) {
                 return < Comment
                     author={item.author}
