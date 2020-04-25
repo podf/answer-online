@@ -7,3 +7,7 @@
 .list_box:hover {
     background: #333333;
 }
+
+.articleList-content{
+    margin-top: 10px;
+}

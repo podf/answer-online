@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Comment, Avatar, Form, Button, List, Input, Modal } from 'antd';
+import { Comment, Avatar, Form, Button, List, Input, Modal, Card } from 'antd';
 import moment from 'moment';
 
 import { get, post } from '../../utils/request';
@@ -70,7 +70,7 @@ function Article(props) {
     }
 
     const articleList = (topComments, allComments) => {
-        return topComments.map(item=> {
+        return topComments.map(item => {
             const childComments = filterChildComments(item._id);
             if (childComments.length < 1) {
                 return <Comment
@@ -145,7 +145,9 @@ function Article(props) {
     return (
         <div>
             <div>
-                {content}
+                <Card>
+                    {content}
+                </Card>
             </div>
             <div>
                 <Comment

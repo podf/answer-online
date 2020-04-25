@@ -22,9 +22,12 @@ function ArticleList(props) {
         </span>
     );
 
+    const sliceText = (text, len) => {
+        return text.length > len ? `${text.slice(0, len)}......` : text;
+    }
+
     return (
         <div>
-            {console.log(data, 'data')}
             <List
                 itemLayout="vertical"
                 size="large"
@@ -32,57 +35,29 @@ function ArticleList(props) {
                     onChange: page => {
                         console.log(page);
                     },
-                    pageSize: 3,
+                    pageSize: 7,
                 }}
                 dataSource={data}
-                // header={`${data.length} ${data.length > 1 ? 'replies' : 'reply'}`}
+                header={`${data.length > 1 ? '' : '当前没有文章，快去发布你的想法吧！'}`}
                 itemLayout="horizontal"
                 // renderItem={(topComments) => articleList([topComments], comments)}
-                renderItem={item => (
+                renderItem={(item, index) => (
                     <List.Item
-                        key={item.title}
+                        key={`${item.title}-${index}`}
                         actions={[
-                            <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
                             <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
                             <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
                         ]}
-                        extra={
-                            <img
-                                width={272}
-                                alt="logo"
-                                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                            />
-                        }
                     >
                         <List.Item.Meta
                             avatar={<Avatar src={item.avatar} />}
-                            title={<a href={item.href}>{item.title}</a>}
-                            description={item.description}
+                            title={<a onClick={() => props.history.push(`/home/article/${item._id}`)}>{sliceText(item.title, 40)}</a>}
                         />
-                        {item.content}
+                        <div style={{marginTop: 5}}></div>
+                        {sliceText(item.describe, 90)}
                     </List.Item>
                 )}
             />
-            {/* {
-                data.map(item => {
-                    return <div className="list_box" onClick={() => props.history.push(`/home/article/${item._id}`)}>
-                        <div className="list_title">
-                            {item.title}
-                        </div>
-                        <div className="list_content">
-                            {item.describe}
-                        </div>
-                        <div className="list_footer">
-                            <div>
-                                点赞数
-                            </div>
-                            <div>
-                                评论数
-                            </div>
-                        </div>
-                    </div>
-                })
-            } */}
         </div>
     )
 }
