@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Menu, Dropdown } from 'antd';
 import './index.css';
 import { Route, withRouter, Switch, HashRouter as Router } from 'react-router-dom';
 import img from '../../../src/img/bg.jpg';
@@ -8,10 +8,6 @@ import Edit from '../Article/Edit';
 import List from '../Article/List';
 import Article from '../Article';
 import UserInfo from '../User/UserInfo';
-
-
-const { Header, Content, Footer, Modal, Button } = Layout;
-
 
 function Home(props) {
     const [dialogShow, setDialogShow] = useState(false);
@@ -23,30 +19,23 @@ function Home(props) {
     const menu = (
         <Menu>
             <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" onClick={() => { props.history.push('/home/setting') }}>
+                <div onClick={() => { props.history.push('/home/setting') }}>
                     个人设置
-                </a>
+                </div>
             </Menu.Item>
             <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" onClick={() => { props.history.push('/login') }}>
+                <div onClick={() => { props.history.push('/login') }}>
                     退出登录
-                </a>
+                </div>
             </Menu.Item>
         </Menu>
     );
 
     return (
         <Router>
-            {/* <Layout style={{
-                maxWidth: 1100,
-                height: '100%',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-            }} > */}
             <div
                 style={{
                     maxWidth: 1100,
-                    // height: '100%',
                     marginLeft: 'auto',
                     marginRight: 'auto',
                 }}
@@ -70,18 +59,16 @@ function Home(props) {
                 </header>
                 <div className="body-content">
                     <div className="main" style={{ display: 'flex' }}>
-                        <div className="container" style={{ flex: '0 0 70%', maxWidth: '70%' }}>
+                        <div className="container" style={{  }}>
                             <Route exact path="/home" component={List} />
                             <Route exact path="/home/edit" component={Edit} />
                             <Route path="/home/article/:id" component={Article} />
-                            {/* <UserInfo dialogShow={dialogShow} handleDialogShow={handleDialogShow}/> */}
                             <Route path="/home/setting" component={UserInfo} />
                         </div>
                         <Route path="/home" component={Aside} />
                     </div>
                 </div>
                 {/* <footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</footer> */}
-                {/* </ Layout > */}
             </div>
         </Router>
     )

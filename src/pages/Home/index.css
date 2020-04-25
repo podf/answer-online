@@ -59,9 +59,15 @@ body {
 
 .body-content {
     /* height: 100%; */
-    padding: 0 50px;
     padding-bottom: 30px;
     margin-top: 50px;
-    background: #fff;
 }
 
+.container {
+    flex: 0 0 70%;
+    max-width: 70%;
+    padding: 0 50px;
+    padding-bottom: 20px;
+    margin-right: 20px;
+    background: #fff;
+}

@@ -15,9 +15,6 @@ import './userInfo.css';
 const { TextArea } = Input;
 
 function UserInfo() {
-
-    const userId = localStorage.getItem('userId');
-
     const [name, setName] = useState('');
     const [sign, setSign] = useState('');
     const [email, setEmail] = useState('');
@@ -28,7 +25,8 @@ function UserInfo() {
 
     const userLabel = ['用户名', '标签', '电话', '电子邮箱', '简介', ''];
 
-    useEffect(async () => {
+    const getData = async () => {
+        const userId = localStorage.getItem('userId');
         const res = await get(`/user/info/${userId}`);
         const { username, sign, phone, email, info } = res.info;
         setName(username);
@@ -36,6 +34,11 @@ function UserInfo() {
         setPhone(phone);
         setEmail(email);
         setInfo(info);
+        console.log(2)
+    }
+
+    useEffect(() => {
+        getData();
     }, []);
 
 
@@ -71,7 +74,8 @@ function UserInfo() {
 
 
     return (
-        <div className="userinfo-box">
+        // {/* <Input value={password} type="password" onChange={handlePassword} className={'userinfo-target-item'} /> */ }
+        <div div className="userinfo-box" >
             <div className={'userinfo-label'}>
                 {
                     userLabel.map(item => <div className={'userinfo-label-item'}>{item}{item && <span className="userinfo-label-require">*</span>}</div>)
@@ -79,8 +83,8 @@ function UserInfo() {
             </div>
             <div className='userinfo-target'>
                 <Input value={name} onChange={handleName} className={'userinfo-target-item'} />
-                {/* <Input value={password} type="password" onChange={handlePassword} className={'userinfo-target-item'} /> */}
                 <Input value={sign} onChange={handleSign} className={'userinfo-target-item'} />
+
                 <Input value={phone} onChange={handlePhone} className={'userinfo-target-item'} />
                 <Input value={email} onChange={handleEmail} className={'userinfo-target-item'} />
                 <TextArea rows={4} value={info} onChange={handleInfo} className={'userinfo-target-item'} />
