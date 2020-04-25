@@ -24,7 +24,7 @@ function Home(props) {
         <Menu>
             <Menu.Item>
                 <a target="_blank" rel="noopener noreferrer" onClick={() => { props.history.push('/home/setting') }}>
-                    个人信息
+                    个人设置
                 </a>
             </Menu.Item>
             <Menu.Item>
@@ -37,13 +37,21 @@ function Home(props) {
 
     return (
         <Router>
-            <Layout style={{
+            {/* <Layout style={{
                 maxWidth: 1100,
                 height: '100%',
                 marginLeft: 'auto',
                 marginRight: 'auto',
-            }} >
-                <Header className="headerBar">
+            }} > */}
+            <div
+                style={{
+                    maxWidth: 1100,
+                    // height: '100%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                }}
+            >
+                <header className="headerBar">
                     <div className="header-content">
                         <div className="header-logo" onClick={() => { props.history.push('/home') }}>
                             <span className="iconfont icon-xuexi header-icon"></span>
@@ -59,8 +67,8 @@ function Home(props) {
                             </div>
                         </div>
                     </div>
-                </Header>
-                <div className="content">
+                </header>
+                <div className="body-content">
                     <div className="main" style={{ display: 'flex' }}>
                         <div className="container" style={{ flex: '0 0 70%', maxWidth: '70%' }}>
                             <Route exact path="/home" component={List} />
@@ -72,8 +80,9 @@ function Home(props) {
                         <Route path="/home" component={Aside} />
                     </div>
                 </div>
-                <footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</footer>
-            </ Layout >
+                {/* <footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</footer> */}
+                {/* </ Layout > */}
+            </div>
         </Router>
     )
 }

@@ -22,8 +22,8 @@ function App() {
               />
             )
           })
+        // <Redirect to="/404" />
         }
-        <Redirect to="/404" />
       </Switch>
     // : <Redirect to="/login" />
   )

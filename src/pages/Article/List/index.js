@@ -27,7 +27,7 @@ function ArticleList(props) {
     }
 
     return (
-        <div>
+        <div style={{minHeight: '830px'}}>
             <List
                 itemLayout="vertical"
                 size="large"
@@ -53,7 +53,7 @@ function ArticleList(props) {
                             avatar={<Avatar src={item.avatar} />}
                             title={<a onClick={() => props.history.push(`/home/article/${item._id}`)}>{sliceText(item.title, 40)}</a>}
                         />
-                        <div style={{marginTop: 5}}></div>
+                        <div style={{ marginTop: 5 }}></div>
                         {sliceText(item.describe, 90)}
                     </List.Item>
                 )}

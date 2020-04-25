@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Modal,
     Form,
@@ -9,52 +9,59 @@ import {
     Card,
     message
 } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { post } from '../../../utils/request';
+import { get } from '../../../utils/request';
 import './userInfo.css';
 
-const { Link } = require('react-router-dom');
+const { TextArea } = Input;
 
-const { Option } = Select;
+function UserInfo() {
 
-const formItemLayout = {
-    labelCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 8,
-        },
-    },
-    wrapperCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 16,
-        },
-    },
-};
+    const userId = localStorage.getItem('userId');
 
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
-    },
-};
-
-
-
-export default function UserInfo(props) {
-    const { dialogShow, handleDialogShow } = props;
-
+    const [name, setName] = useState('');
+    const [sign, setSign] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [info, setInfo] = useState('');
+    const [password, setPassword] = useState('');
     const [confirmLoading, setConfirmLoading] = useState(false);
+
+    const userLabel = ['用户名', '标签', '电话', '电子邮箱', '简介', ''];
+
+    useEffect(async () => {
+        const res = await get(`/user/info/${userId}`);
+        const { username, sign, phone, email, info } = res.info;
+        setName(username);
+        setSign(sign);
+        setPhone(phone);
+        setEmail(email);
+        setInfo(info);
+    }, []);
+
+
+    const handleName = (e) => {
+        setName(e.target.value);
+    }
+
+    const handleSign = (e) => {
+        setSign(e.target.value);
+    }
+
+    const handlePhone = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handleInfo = (e) => {
+        setInfo(e.target.value);
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    }
 
     const modifyInfo = () => {
         setTimeout(() => {
@@ -62,148 +69,29 @@ export default function UserInfo(props) {
         }, 200)
     }
 
-    const [form] = Form.useForm();
-
-    const onFinish = async values => {
-        const { username, password, phone, email } = values;
-        const { code, identity } = await post('/register', { username, password, phone, email });
-
-        if (code === 406) {
-            message.error('用户名已存在');
-            return;
-        }
-        if (identity === 1) {
-            window.location.href = '#/login';
-        }
-    };
-
-    const prefixSelector = (
-        <Form.Item name="prefix" noStyle>
-            <Select
-                style={{
-                    width: 70,
-                }}
-            >
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>
-        </Form.Item>
-    );
 
     return (
-        // <Modal
-        //     title="个人设置"
-        //     visible={dialogShow}
-        //     onOk={() => modifyInfo()}
-        //     confirmLoading={confirmLoading}
-        //     onCancel={() => handleDialogShow(false)}
-        // >
-        <Form
-            {...formItemLayout}
-            form={form}
-            name="register"
-            onFinish={onFinish}
-            initialValues={{
-                residence: ['zhejiang', 'hangzhou', 'xihu'],
-                prefix: '86',
-            }}
-            scrollToFirstError
-        >
-            <Form.Item
-                name="username"
-                label={
-                    <span>
-                        修改用户名
-                        </span>
+        <div className="userinfo-box">
+            <div className={'userinfo-label'}>
+                {
+                    userLabel.map(item => <div className={'userinfo-label-item'}>{item}{item && <span className="userinfo-label-require">*</span>}</div>)
                 }
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your username!',
-                        whitespace: true,
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                label="修改密码"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                ]}
-                hasFeedback
-            >
-                <Input.Password />
-            </Form.Item>
-
-            <Form.Item
-                name="confirm"
-                label="确认密码"
-                dependencies={['password']}
-                hasFeedback
-                rules={[
-                    {
-                        required: true,
-                        message: '请填写密码!',
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(rule, value) {
-                            if (!value || getFieldValue('password') === value) {
-                                return Promise.resolve();
-                            }
-
-                            return Promise.reject('两次密码不一致');
-                        },
-                    }),
-                ]}
-            >
-                <Input.Password />
-            </Form.Item>
-            <Form.Item
-                name="phone"
-                label="修改电话"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your phone number!',
-                    },
-                ]}
-            >
-                <Input
-                    addonBefore={prefixSelector}
-                    style={{
-                        width: '100%',
-                    }}
-                />
-            </Form.Item>
-            <Form.Item
-                name="email"
-                label="修改电子邮箱"
-                rules={[
-                    {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    },
-                    {
-                        required: true,
-                        message: 'Please input your E-mail!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item {...tailFormItemLayout} >
-                <Button type="primary" htmlType="submit">
-                    注册
+            </div>
+            <div className='userinfo-target'>
+                <Input value={name} onChange={handleName} className={'userinfo-target-item'} />
+                {/* <Input value={password} type="password" onChange={handlePassword} className={'userinfo-target-item'} /> */}
+                <Input value={sign} onChange={handleSign} className={'userinfo-target-item'} />
+                <Input value={phone} onChange={handlePhone} className={'userinfo-target-item'} />
+                <Input value={email} onChange={handleEmail} className={'userinfo-target-item'} />
+                <TextArea rows={4} value={info} onChange={handleInfo} className={'userinfo-target-item'} />
+                <div style={{ width: '100%' }}>
+                    <Button type="primary" htmlType="submit" style={{ float: "right" }}>
+                        登录
                     </Button>
-                <Button type="ghost" style={{ marginLeft: 30 }}>
-                    <Link to="/login"> 取消</Link>
-                </Button>
-            </Form.Item>
-        </Form>
+                </div>
+            </div>
+        </div>
     )
 }
+
+export default UserInfo;

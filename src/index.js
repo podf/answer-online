@@ -12,7 +12,7 @@ ReactDOM.render(
     <Router>
         {mainRouters.map(route => <Route exact={route.exact} key={route.path} {...route} />)}
         <Route path="/admin" render={routeProps => <App {...routeProps} />} />
-        <Redirect to="/404" />
+        {/* <Redirect to="/404" /> */}
     </Router>,
     document.getElementById('root'));
 

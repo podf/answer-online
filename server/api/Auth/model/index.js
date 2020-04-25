@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 
 const userSchema = new Schema({
-    _id: { type: String },
+    // _id: { type: String },
     name: { type: String },
     // unique用户名不允许重复
     username: { type: String, unique: true },
@@ -17,6 +17,9 @@ const userSchema = new Schema({
     identity: { type: String },
     phone: { type: String },
     email: { type: String },
+    sign: {type: String, default: ''},
+    info: {type: String, default: ''},
+    star: {type: Number, default: 0},
     createAt: { type: Date },
 });
 

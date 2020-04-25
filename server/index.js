@@ -11,6 +11,7 @@ const admin = require('./middwares/admin')();
 
 const Login = require('./api/Auth/Login');
 const Rigister = require('./api/Auth/Rigister');
+const UserInfo = require('./api/Auth');
 
 const Edit = require('./api/Article/Edit');
 const Get = require('./api/Article/Get');
@@ -35,6 +36,7 @@ const router = new Router();
 router
     // 带上jwt就会产生跨域
     // .post('/api/login', jwt({ secret: SECRET }), Login)
+    // User
     .post('/api/login', Login)
     .get('/api/identity', jwt({ secret: SECRET }), admin, async (ctx) => {
         const { username, identity } = ctx.state.user;
@@ -43,8 +45,9 @@ router
             identity,
         }
     })
-    // article
     .post('/api/register', Rigister)
+    .get('/api/user/info/:_id', UserInfo)
+    // article
     .post('/api/article', Edit)
     .get('/api/article', Get)
     .get('/api/article/:_id', GetItem)
