@@ -11,7 +11,7 @@ const Get = async (ctx, next) => {
     }
 
     try {
-        const articleList = await ArticleModel.find({}).exec();
+        const articleList = await ArticleModel.find({}).sort({ created: 'desc' });
         ctx.response.body = {
             code: 0,
             articleList,

@@ -21,7 +21,6 @@ const Article = async (ctx, next) => {
             title,
             describe,
         });
-        console.log(code, 'code')
         if (code) {
             const user = await UserModel.findOne({ _id: userId });
             const { star } = user;
