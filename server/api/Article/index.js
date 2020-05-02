@@ -16,12 +16,6 @@ const Article = async (ctx, next) => {
     }
 
     try {
-        // let foundUser = '';
-        // foundUser = await UserModel.findOne({ _id: userId }).exec();
-        // if (!foundUser) {
-        //     failed(401, '该用户不存在');
-        //     return;
-        // }
         await ArticleModel.insertMany({
             userId,
             title,

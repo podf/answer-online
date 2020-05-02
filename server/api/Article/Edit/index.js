@@ -16,17 +16,17 @@ const Article = async (ctx, next) => {
     }
 
     try {
-        // let foundUser = '';
-        // foundUser = await UserModel.findOne({ _id: userId }).exec();
-        // if (!foundUser) {
-        //     failed(401, '该用户不存在');
-        //     return;
-        // }
-        await ArticleModel.insertMany({
+        const code = await ArticleModel.insertMany({
             userId,
             title,
             describe,
         });
+        console.log(code, 'code')
+        if (code) {
+            const user = await UserModel.findOne({ _id: userId });
+            const { star } = user;
+            const updataRes = await UserModel.updateOne({ _id: userId }, { $set: { star: star + 10 } })
+        }
     } catch (error) {
         console.log(error, 'error ');
         failed(1, error);

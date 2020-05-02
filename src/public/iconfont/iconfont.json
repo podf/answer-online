@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "3401997",
+      "name": "亚军",
+      "font_class": "yajun",
+      "unicode": "e6b0",
+      "unicode_decimal": 59056
+    },
+    {
+      "icon_id": "3402022",
+      "name": "冠军",
+      "font_class": "guanjun",
+      "unicode": "e6b1",
+      "unicode_decimal": 59057
+    },
+    {
+      "icon_id": "3402049",
+      "name": "季军",
+      "font_class": "jijun",
+      "unicode": "e6b2",
+      "unicode_decimal": 59058
+    },
+    {
       "icon_id": "4734172",
       "name": "编辑",
       "font_class": "ic_accepted",

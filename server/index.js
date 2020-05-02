@@ -19,6 +19,8 @@ const GetItem = require('./api/Article/GetItem');
 const Comment = require('./api/Article/Comment');
 const EditComment = require('./api/Article/Comment/Edit');
 
+const RankingList = require('./api/Ranking');
+
 
 const app = new Koa();
 app.use(cors());
@@ -54,6 +56,8 @@ router
     // comment
     .get('/api/comment/:_id', Comment)
     .post('/api/comment', EditComment)
+    // Ranking
+    .get('/api/ranking', RankingList)
 
 
 // router.routes() 将所有路由挂载

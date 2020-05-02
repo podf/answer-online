@@ -1,4 +1,5 @@
 const ArticleModel = require('../../model');
+const UserMondel = require('../../../Auth/model');
 const CommentModel = require('../../model/comment');
 
 const Comment = async (ctx, next) => {
@@ -32,7 +33,8 @@ const Comment = async (ctx, next) => {
         }
         const comments = new CommentModel(obj);
         await comments.save();
-        // comments = await ArticleModel.findByIdAndUpdate(_id, { comments: commentData });
+        const user = await UserMondel.findOne({ username: author });
+        await UserMondel.updateOne({ username: author }, { $set: { star: user.star + 3 } })
         ctx.response.body = {
             code: 0,
             comments,
