@@ -57,7 +57,7 @@ router
     .get('/api/comment/:_id', Comment)
     .post('/api/comment', EditComment)
     // Ranking
-    .get('/api/ranking', RankingList)
+    .get('/api/ranking/:userId', RankingList)
 
 
 // router.routes() 将所有路由挂载

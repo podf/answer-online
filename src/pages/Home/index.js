@@ -47,8 +47,10 @@ function Home(props) {
                             <span>在线答疑系统</span>
                         </div>
                         <div className="header-info">
-                            <span onClick={() => props.history.push('/home/edit')}>发帖</span>
-                            {/* 点击退出登录，查看个人信息 */}
+                            <span onClick={() => props.history.push('/home/edit')}>
+                                <span className="iconfont icon-ic_accepted"></span>
+                                发帖
+                            </span>
                             <div>
                                 <Dropdown overlay={menu} placement="bottomCenter">
                                     <img src={img} className="header-info-img" />
@@ -59,7 +61,7 @@ function Home(props) {
                 </header>
                 <div className="body-content">
                     <div className="main" style={{ display: 'flex' }}>
-                        <div className="container" style={{  }}>
+                        <div className="container" style={{}}>
                             <Route exact path="/home" component={List} />
                             <Route exact path="/home/edit" component={Edit} />
                             <Route path="/home/article/:id" component={Article} />
