@@ -14,7 +14,7 @@ const Rigister = require('./api/Auth/Rigister');
 const UserInfo = require('./api/Auth');
 const UserModifyInfo = require('./api/Auth/Modify');
 const GetAllUser = require('./api/Auth/GetAllAuth');
-const DeleteUser = require('./api/Auth/DelAuth');
+const DelAuth = require('./api/Auth/DelAuth');
 
 const Edit = require('./api/Article/Edit');
 const Get = require('./api/Article/Get');
@@ -24,7 +24,8 @@ const EditComment = require('./api/Article/Comment/Edit');
 const DeleteItem = require('./api/Article/Delete');
 
 const RankingList = require('./api/Ranking');
-
+const Announcement = require('./api/Announcement');
+const DataClear = require('./api/Data');
 
 const app = new Koa();
 app.use(cors());
@@ -55,7 +56,7 @@ router
     .get('/api/user/info/:_id', UserInfo)
     .post('/api/user/info/', UserModifyInfo)
     .get('/api/user', GetAllUser)
-    .delete('/api/user/:_id', DeleteUser)
+    .delete('/api/user/:_id', DelAuth)
     // article
     .post('/api/article', Edit)
     .get('/api/article', Get)
@@ -66,6 +67,10 @@ router
     .post('/api/comment', EditComment)
     // Ranking
     .get('/api/ranking/:userId', RankingList)
+    // Announcement
+    .post('/api/announcement', Announcement)
+    // DataClear
+    .delete('/api/data', DataClear)
 
 
 // router.routes() 将所有路由挂载
@@ -74,39 +79,3 @@ app.use(router.routes()).use(router.allowedMethods())
 app.listen(3001, () => {
     console.log('start server');
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const app = express();
-
-// // app.use(cors());
-// // app.use(express.json());
-// app.use(cors({ credentials: true }));
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json({ limit: '100mb' }));
-
-// connectMongo(app);
-
-// app.post('/login', Login);
-// app.post('/register', Rigister);
-
-
-
-// app.listen(3001, () => {
-//     console.log('server start');
-// })

@@ -51,6 +51,7 @@ function UserManagement() {
     const handleDel = async (text, record) => {
         console.log(text, 'text')
         console.log(record, 'record');
+        console.log(record._id, 'record._id')
 
         const { code } = await del(`/user/${record._id}`)
         if (code === 0) {

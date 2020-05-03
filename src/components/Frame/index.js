@@ -36,10 +36,10 @@ const Frame = (props) => {
                     <Menu.Item key="2" icon={<VideoCameraOutlined />} onClick={() => props.history.push('/admin/user')}>
                         用户管理
                     </Menu.Item>
-                    <Menu.Item key="3" icon={<UploadOutlined />}>
+                    <Menu.Item key="3" icon={<UploadOutlined />} onClick={() => props.history.push('/admin/announcement')}>
                         发布公告
                     </Menu.Item>
-                    <Menu.Item key="4" icon={<UploadOutlined />}>
+                    <Menu.Item key="4" icon={<UploadOutlined />} onClick={() => props.history.push('/admin/data')}>
                         数据清除
                     </Menu.Item>
                 </Menu>

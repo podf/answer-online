@@ -47,9 +47,6 @@ function ArticleManagement() {
 
 
     const handleDel = async (text, record) => {
-        console.log(text, 'text')
-        console.log(record, 'record');
-
         const { code } = await del(`/aritcle/${record._id}`)
         if (code === 0) {
             await get('/article').then(res => {

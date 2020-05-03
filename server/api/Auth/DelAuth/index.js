@@ -1,7 +1,7 @@
 const UserModel = require('../model');
 
-const GetAllUser = async (ctx, next) => {
-    const { _id } = ctx;
+const DelAuth = async (ctx, next) => {
+    const { _id } = ctx.params;
 
     const failed = (code, message) => {
         ctx.body = {
@@ -12,7 +12,6 @@ const GetAllUser = async (ctx, next) => {
     }
 
     try {
-        console.log(_id, '_id')
         await UserModel.deleteOne({ _id });
         ctx.response.body = {
             code: 0,
@@ -27,4 +26,4 @@ const GetAllUser = async (ctx, next) => {
 
 }
 
-module.exports = GetAllUser;
+module.exports = DelAuth;
