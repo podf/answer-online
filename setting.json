@@ -1,6 +1,6 @@
 {
     "mongoDB": {
-        "url": "mongodb://39.105.64.197:27017/answer-online"
+        "url": "mongodb://localhost:27017/answer-online"
     },
     "SECRET": "online"
 }
