@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'PingFang SC';
 }
 
 body {
@@ -53,7 +54,7 @@ body {
     cursor: pointer;
 }
 
-.header-info>span{
+.header-info>span {
     margin-right: 10px;
 }
 

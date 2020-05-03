@@ -65,7 +65,7 @@ function UserManagement() {
 
     return (
         <div>
-            <Card title="用户管理" extra={<input />}>
+            <Card title="用户管理">
                 <Table columns={columns} dataSource={data} />
             </Card>
         </div>

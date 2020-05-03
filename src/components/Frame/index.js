@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Dropdown } from 'antd';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -12,6 +12,7 @@ import {
 import { Route, withRouter, Switch, HashRouter as Router } from 'react-router-dom';
 
 import './index.css';
+import img from '../../img/bg.jpg';
 
 const { Header, Sider, Content } = Layout;
 
@@ -21,6 +22,16 @@ const Frame = (props) => {
     const toggle = () => {
         setCollapsed(!collapsed);
     }
+
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <div onClick={() => { props.history.push('/login'); localStorage.clear() }}>
+                    退出登录
+                </div>
+            </Menu.Item>
+        </Menu>
+    );
 
     return (
         <Layout className="adminFrameBox">
@@ -45,11 +56,14 @@ const Frame = (props) => {
                 </Menu>
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }}>
+                <Header className="site-layout-background" style={{ padding: '0px 30px 0px 0px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                     {/* {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                         className: 'trigger',
                         onClick: toggle,
                     })} */}
+                    <Dropdown overlay={menu} placement="bottomCenter">
+                        <img src={img} className="header-info-img" />
+                    </Dropdown>
                 </Header>
                 <Content
                     className="site-layout-background"

@@ -24,6 +24,7 @@ const EditComment = require('./api/Article/Comment/Edit');
 const DeleteItem = require('./api/Article/Delete');
 
 const RankingList = require('./api/Ranking');
+const GetAnnouncement = require('./api/Announcement/Get');
 const Announcement = require('./api/Announcement');
 const DataClear = require('./api/Data');
 
@@ -68,6 +69,7 @@ router
     // Ranking
     .get('/api/ranking/:userId', RankingList)
     // Announcement
+    .get('/api/announcement', GetAnnouncement)
     .post('/api/announcement', Announcement)
     // DataClear
     .delete('/api/data', DataClear)

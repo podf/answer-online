@@ -59,7 +59,8 @@ function ArticleManagement() {
 
     return (
         <div>
-            <Card title="文章管理" extra={<input />}>
+            <Card title="文章管理" >
+                {/* <Card title="文章管理" extra={<input />}> */}
                 <Table columns={columns} dataSource={data} />
             </Card>
         </div>
