@@ -10,12 +10,6 @@ import Article from '../Article';
 import UserInfo from '../User/UserInfo';
 
 function Home(props) {
-    const [dialogShow, setDialogShow] = useState(false);
-
-    const handleDialogShow = (show) => {
-        setDialogShow(show);
-    }
-
     const menu = (
         <Menu>
             <Menu.Item>
@@ -24,7 +18,7 @@ function Home(props) {
                 </div>
             </Menu.Item>
             <Menu.Item>
-                <div onClick={() => { props.history.push('/login') }}>
+                <div onClick={() => { props.history.push('/login'); localStorage.clear() }}>
                     退出登录
                 </div>
             </Menu.Item>

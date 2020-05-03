@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({
     userId: { type: String },
+    username: { type: String },
     title: { type: String },
     describe: { type: String },
     star: { type: Number, default: 0 },

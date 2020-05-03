@@ -16,14 +16,15 @@ const Article = async (ctx, next) => {
     }
 
     try {
+        const user = await UserModel.findOne({ _id: userId });
+        const { star, username } = user;
         const code = await ArticleModel.insertMany({
             userId,
             title,
             describe,
+            username,
         });
         if (code) {
-            const user = await UserModel.findOne({ _id: userId });
-            const { star } = user;
             const updataRes = await UserModel.updateOne({ _id: userId }, { $set: { star: star + 10 } })
         }
     } catch (error) {

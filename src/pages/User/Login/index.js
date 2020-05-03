@@ -11,9 +11,6 @@ function Login() {
     const onFinish = async values => {
         const { username, password } = values;
         const data = await post('/login', { username, password });
-
-        console.log(data, 'data');
-        // console.log(code, 'code');
         const { code, token, identity, userId } = data;
         if (code === 401) {
             message.error(data.message);
@@ -27,7 +24,7 @@ function Login() {
             window.location.href = '#/home';
         } else {
             // 跳转admin页面
-            window.location.href = '#/admin';
+            window.location.href = '#/admin/user';
         }
     };
     return (

@@ -13,12 +13,15 @@ const Login = require('./api/Auth/Login');
 const Rigister = require('./api/Auth/Rigister');
 const UserInfo = require('./api/Auth');
 const UserModifyInfo = require('./api/Auth/Modify');
+const GetAllUser = require('./api/Auth/GetAllAuth');
+const DeleteUser = require('./api/Auth/DelAuth');
 
 const Edit = require('./api/Article/Edit');
 const Get = require('./api/Article/Get');
 const GetItem = require('./api/Article/GetItem');
 const Comment = require('./api/Article/Comment');
 const EditComment = require('./api/Article/Comment/Edit');
+const DeleteItem = require('./api/Article/Delete');
 
 const RankingList = require('./api/Ranking');
 
@@ -51,10 +54,13 @@ router
     .post('/api/register', Rigister)
     .get('/api/user/info/:_id', UserInfo)
     .post('/api/user/info/', UserModifyInfo)
+    .get('/api/user', GetAllUser)
+    .delete('/api/user/:_id', DeleteUser)
     // article
     .post('/api/article', Edit)
     .get('/api/article', Get)
     .get('/api/article/:_id', GetItem)
+    .delete('/api/aritcle/:_id', DeleteItem)
     // comment
     .get('/api/comment/:_id', Comment)
     .post('/api/comment', EditComment)

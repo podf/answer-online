@@ -9,9 +9,9 @@ import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 
 function ArticleList(props) {
     const [data, setData] = useState([]);
+    
     useEffect(() => {
         get('/article').then(res => {
-            console.log(res.articleList, 'articleListarticleList')
             setData(res.articleList);
         })
     }, []);
