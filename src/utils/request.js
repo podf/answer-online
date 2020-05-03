@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { getToken } from './auth';
 
 const instance = Axios.create({
-    baseURL: 'http://localhost:3001/api',
+    baseURL: 'http://39.105.64.197:3001/api',
     timeout: 5000
 });
 
