@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import {
-    Modal,
-    Form,
     Input,
-    Tooltip,
-    Select,
     Button,
-    Card,
-    message
+    message,
 } from 'antd';
-import { get } from '../../../utils/request';
+
+import { get, post } from '../../../utils/request';
+
 import './userInfo.css';
 
 const { TextArea } = Input;
@@ -20,13 +17,12 @@ function UserInfo() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [info, setInfo] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [userInfo, setUserInfo] = useState();
 
+    const userId = localStorage.getItem('userId');
     const userLabel = ['用户名', '标签', '电话', '电子邮箱', '简介', ''];
 
     const getData = async () => {
-        const userId = localStorage.getItem('userId');
         const res = await get(`/user/info/${userId}`);
         const { username, sign, phone, email, info } = res.info;
         setName(username);
@@ -34,7 +30,7 @@ function UserInfo() {
         setPhone(phone);
         setEmail(email);
         setInfo(info);
-        console.log(2)
+        setUserInfo({ username, sign, phone, email, info });
     }
 
     useEffect(() => {
@@ -62,19 +58,25 @@ function UserInfo() {
         setInfo(e.target.value);
     }
 
-    const handlePassword = (e) => {
-        setPassword(e.target.value);
+    const isNotSafe = () => {
+        const data = { name, sign, phone, email, info }
+        const haveNullData = Object.keys(data).find(item => !data[item])
+        return haveNullData;
     }
 
-    const modifyInfo = () => {
-        setTimeout(() => {
-            setConfirmLoading(true);
-        }, 200)
+    const modifyInfo = async () => {
+        if (isNotSafe()) {
+            message.error('请完善数据哦！');
+            return
+        }
+        const { code } = await post('/user/info/', { userId, username: name, sign, phone, email, info });
+        if (code === 0) {
+            message.success('更新成功');
+        }
     }
 
 
     return (
-        // {/* <Input value={password} type="password" onChange={handlePassword} className={'userinfo-target-item'} /> */ }
         <div div className="userinfo-box" >
             <div className={'userinfo-label'}>
                 {
@@ -89,8 +91,8 @@ function UserInfo() {
                 <Input value={email} onChange={handleEmail} className={'userinfo-target-item'} />
                 <TextArea rows={4} value={info} onChange={handleInfo} className={'userinfo-target-item'} />
                 <div style={{ width: '100%' }}>
-                    <Button type="primary" htmlType="submit" style={{ float: "right" }}>
-                        登录
+                    <Button type="primary" onClick={modifyInfo} htmlType="submit" style={{ float: "right" }}>
+                        修改
                     </Button>
                 </div>
             </div>

@@ -11,6 +11,7 @@ function ArticleList(props) {
     const [data, setData] = useState([]);
     useEffect(() => {
         get('/article').then(res => {
+            console.log(res.articleList, 'articleListarticleList')
             setData(res.articleList);
         })
     }, []);
@@ -27,7 +28,7 @@ function ArticleList(props) {
     }
 
     return (
-        <div style={{minHeight: '830px'}}>
+        <div style={{ minHeight: '830px' }}>
             <List
                 itemLayout="vertical"
                 size="large"
@@ -44,13 +45,17 @@ function ArticleList(props) {
                 renderItem={(item, index) => (
                     <List.Item
                         key={`${item.title}-${index}`}
-                        actions={[
-                            <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                            <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                        ]}
+                    // actions={[
+                    //     <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+                    //     <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                    // ]}
                     >
                         <List.Item.Meta
-                            avatar={<Avatar src={item.avatar} />}
+                            avatar={<Avatar
+                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                                alt={item.author}
+                            />}
+                            // avatar={<Avatar src={item.avatar} />}
                             title={<a onClick={() => props.history.push(`/home/article/${item._id}`)}>{sliceText(item.title, 40)}</a>}
                         />
                         <div style={{ marginTop: 5 }}></div>

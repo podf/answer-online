@@ -12,6 +12,7 @@ const admin = require('./middwares/admin')();
 const Login = require('./api/Auth/Login');
 const Rigister = require('./api/Auth/Rigister');
 const UserInfo = require('./api/Auth');
+const UserModifyInfo = require('./api/Auth/Modify');
 
 const Edit = require('./api/Article/Edit');
 const Get = require('./api/Article/Get');
@@ -49,6 +50,7 @@ router
     })
     .post('/api/register', Rigister)
     .get('/api/user/info/:_id', UserInfo)
+    .post('/api/user/info/', UserModifyInfo)
     // article
     .post('/api/article', Edit)
     .get('/api/article', Get)

@@ -27,6 +27,11 @@
 }
 
 .rankingList-iconGroup>div>span:nth-child(2) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 100px;
+    max-width: 100px;
     margin-left: 30px;
 }
 

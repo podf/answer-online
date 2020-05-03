@@ -6,6 +6,7 @@ import { get, post } from '../../utils/request';
 
 function Article(props) {
     const [value, setValue] = useState('');
+    const [titel, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [comments, setComments] = useState([]);
     const [topComments, setTopComments] = useState([]);
@@ -23,6 +24,7 @@ function Article(props) {
         // 查询当前文章的内容及评论
         const id = props.match.params.id;
         get(`/article/${id}`).then(res => {
+            setTitle(res.article.title);
             setContent(res.article.describe);
         })
         get(`/comment/${id}`).then(res => {
@@ -145,7 +147,7 @@ function Article(props) {
     return (
         <div>
             <div>
-                <Card>
+                <Card title={titel} bordered={false}>
                     {content}
                 </Card>
             </div>

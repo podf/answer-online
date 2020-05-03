@@ -6,7 +6,7 @@ import { post } from '../../../utils/request';
 import './index.css';
 
 const { TextArea } = Input;
-function Edit() {
+function Edit(props) {
     const [title, setTitle] = useState('');
     const [describe, setDescribe] = useState('');
 
@@ -14,7 +14,9 @@ function Edit() {
     const submit = async () => {
         const userId = localStorage.getItem('userId');
         const { code } = await post('/article', { userId, title, describe });
-
+        if (code === 0) {
+            props.history.push('/home')
+        }
         console.log(title, 'title')
         console.log(describe, 'describe')
     };
