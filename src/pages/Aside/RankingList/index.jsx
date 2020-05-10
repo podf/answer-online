@@ -12,7 +12,7 @@ function RankingList() {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     get(`/ranking/${userId}`).then((res) => {
-      setUserStar(res.userInfo.star);
+      setUserStar(res.userInfo && res.userInfo.star || 0);
       setTopStarList(res.rankingList);
     });
   }, []);
