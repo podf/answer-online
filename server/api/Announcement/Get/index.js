@@ -11,6 +11,7 @@ const GetAnnouncement = async (ctx, next) => {
     }
 
     try {
+        console.log('come')
         const announcement = await AnnouncementModel.findOne({});
         ctx.response.body = {
             code: 0,

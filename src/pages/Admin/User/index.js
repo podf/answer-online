@@ -9,11 +9,13 @@ function UserManagement() {
 
     useEffect(() => {
         get('/user').then(res => {
-            const dataSource = res.allUser.map(item => { const { _id, username, identity, created } = item; return { _id, username, identity, created } })
+            const dataSource = res.allUser.map(item => {
+                const { _id, username, identity, created } = item;
+                return { _id, username, identity, created }
+            })
             setData(dataSource);
         })
     }, []);
-
 
     const columns = [
         {
