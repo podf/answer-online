@@ -13,8 +13,6 @@ const UserModifyInfo = async (ctx, next) => {
     try {
         console.log(userId, 'userId')
         const res = await UserModel.updateOne({ _id: userId }, { $set: { username, sign, phone, email, info } })
-        console.log(res, 'res');
-        console.log('k')
     } catch (error) {
         failed(1, 'updata error');
     }
