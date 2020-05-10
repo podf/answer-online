@@ -11,7 +11,7 @@ const UserModifyInfo = async (ctx, next) => {
         }
     }
     try {
-        const res = await UserModel.findByIdAndUpdate({ _id: userId }, { $set: { username, sign, phone, email, info } })
+        const res = await UserModel.updateOne({ _id: userId }, { $set: { username, sign, phone, email, info } })
     } catch (error) {
         failed(1, 'updata error');
     }

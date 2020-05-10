@@ -7,7 +7,7 @@ function Announcement() {
     const [info, setInfo] = useState();
 
     useEffect(() => {
-        get('/announcement').then((res) => {
+        get(`/announcement`).then((res) => {
             setInfo((res.announcement && res.announcement.describe) || '');
         });
     }, []);
