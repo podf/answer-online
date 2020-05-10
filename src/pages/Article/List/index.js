@@ -39,7 +39,7 @@ function ArticleList(props) {
                     pageSize: 7,
                 }}
                 dataSource={data}
-                header={`${data.length > 1 ? '' : '当前没有文章，快去发布你的想法吧！'}`}
+                header={`${data.length > 0 ? '' : '当前没有文章，快去发布你的想法吧！'}`}
                 itemLayout="horizontal"
                 // renderItem={(topComments) => articleList([topComments], comments)}
                 renderItem={(item, index) => (
