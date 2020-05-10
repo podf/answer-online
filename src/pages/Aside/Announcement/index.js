@@ -8,7 +8,7 @@ function Announcement() {
 
     useEffect(() => {
         get(`/announcement`).then((res) => {
-            setInfo(res.announcement.describe);
+            setInfo((res.announcement && res.announcement.describe) || '');
         });
     }, []);
 
