@@ -96,7 +96,7 @@ function Article(props) {
                         />
                     }
                     content={item.content}
-                    actions={[<span key="comment-nested-reply-to" onClick={() => replay(item._id, item.to)}>Reply to</span>]}
+                    actions={[<span key="comment-nested-reply-to" onClick={() => replay(item._id, item.to)}>回复</span>]}
                 >
                     {articleList(childComments, allComments)}
                 </Comment >
